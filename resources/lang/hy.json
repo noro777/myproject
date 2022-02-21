@@ -1,0 +1,33 @@
+{
+    "book_create":"Գրանցել Գիրքը",
+    "book_update":"Թարմացնել գիրքը",
+    "author_create":"Գրանցել հեղինակին",
+    "author_update":"Թարմացնել հեղինակին",
+    "name":"Անուն",
+    "email":"էլ․ Հասցե",
+    "image":"Նկար",
+    "file":"Ֆայլ",
+    "text":"տեքստ",
+    "register":"Գրանցում",
+    "update":"Թարմացնել",
+    "Password":"Գաղտնաբառ",
+    "author_id":"Գրողի id-ն",
+
+    "home":"Գլխավոր",
+    "authors":"Հեղինակներ",
+    "books":"Գրքեր",
+    "contact":"Կոնտակտներ",
+    "all_books":"Գրքեր",
+    "all_authors":"Հեղինակներ",
+    "books_blog":"Books Blog",
+    "back":"Հետ",
+    "login":"Մուտք",
+    "Remember Me":"Հիշել Ինձ",
+    "Confirm Password":"Գաղտնաբառի Հաստատում",
+    "search":"Որոնում",
+    "Subject":"Թեմա",
+    "Message":"Հաղորդագրություն",
+    "Submit":"Ուղարկել",
+    "logout":"Դուրս Գալ"
+
+}
