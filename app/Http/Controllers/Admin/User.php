@@ -18,7 +18,7 @@ class User extends Controller
 
     public function aa(Request $req)
     {
-        $user = ModelsUser::find(1);
+        $user = ModelsUser::find(4);
 
         $user->role = 'admin';
 
