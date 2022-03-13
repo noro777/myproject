@@ -2,21 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\FilterAuthorsData;
+use App\Interfaces\AuthorInterface;
 use App\Models\Author;
+use App\Service\AuthorService;
 use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
+    /**
+     * @param AuthorService $authorService
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function authors(AuthorService $authorService){
 
-    public function authors_search(Request $request)
+        $authors = $authorService->getAuthors();
+
+        return view('authors',compact('authors'));
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function author($id){
+        $authora = Author::query()->find($id);
+        $authors = Author::query()->latest()->paginate(3);
+
+        return view('author',compact('authors','authora'));
+    }
+
+    /**
+     * @param Request $request
+     * @param AuthorInterface $interface
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Spatie\DataTransferObject\Exceptions\UnknownProperties
+     */
+    public function authors_search(Request $request,AuthorInterface $interface)
     {
-        $request = $request->all()['query'];
-        $authors = Author::where('name','LIKE','%'.$request.'%')
-        ->orWhere('text','LIKE','%'.$request.'%')
-        ->latest()
-        ->get();
-        session()->put('authors',$authors);
+        $data = new FilterAuthorsData($request->all());
 
-        return view('authors');
+        $authors = $interface->authors_search($data);
+
+        return view('authors',compact('authors'));
     }
 }

@@ -16,17 +16,6 @@ class User extends Controller
         return redirect()->route('admin.users');
     }
 
-    public function aa(Request $req)
-    {
-        $user = ModelsUser::find(4);
-
-        $user->role = 'admin';
-
-        $user->save();
-
-        return redirect()->back();
-    }
-
     public function register_users(Request $request)
     {
         $data = $request->all();

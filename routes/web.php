@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\DownloadController;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\comment;
 use Illuminate\Support\Facades\Route;
-use Carbon\Carbon;
-use Facade\FlareClient\Http\Response;
-use Illuminate\Http\Request;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +20,28 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('/lang','Controller@lang')->name('lang');
+Route::get('download/{filename}', 'DownloadController')->name('download');
+
+Route::get('/', 'HomeController')->name('main');
+
+Route::get('/author/{id}', [AuthorController::class,'author'])->name('author');
+Route::get('/authors', [AuthorController::class,'authors'])->name('authors');
+Route::get('/authors/search','AuthorController@authors_search')->name('authors_scearch');
+
+
+Route::get('/book/{id}',[BookController::class,'book'])->name('book');
+Route::get('/books', [BookController::class,'books'])->name('books');
+Route::get('/books/search','BookController@books_search')->name('books_scearch');
+
+
+Route::get('/contact', [\App\Http\Controllers\ContactController::class,'index'])->name('contact');
+Route::post('/contact/post','ContactController@store')->name('contact.save');
+
+Route::post('/comment/post','CommentController@store')->name('comment.save')->middleware('auth');
 
 Route::view('/login','auth.login')->middleware('guest');
+
 
 Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::view('/','admin.home')->name('home');
@@ -39,7 +59,6 @@ Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
 
     Route::post('/users','Admin\User@search')->name('users.search');
     Route::get('/users/delete/{id}','Admin\User@delete_users')->name('user.delete');
-
 
     Route::get('/books/create','Admin\Book@admin_book_create_view')->name('books.create');
     Route::view('/book/create', 'admin.book.book_create')->name('book.create');
@@ -69,81 +88,13 @@ Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::post('/authors','Admin\Author@search')->name('authors.search');
     Route::get('/authors/delete/{id}','Admin\Author@delete_authors')->name('author.delete');
 
-
     Route::get('contact','Admin\Contact@admin_contact')->name('contact');
     Route::view('/contacts','admin.contacts')->name('contacts');
     Route::post('/contact/search','Admin\Contact@contact_search')->name('contact.search');
     Route::get('/contact/delete/{id}','Admin\Contact@contact_delete')->name('contact.delete');
 
-
-
 });;
-
-
-
-Route::get('download/{filename}', function($filename)
-{
-    $file_path = public_path() .'/files/books/'. $filename;
-    // dd($file_path);
-    if (file_exists($file_path))
-    {
-        return response()->download($file_path, $filename, [
-            'Content-Length: '. filesize($file_path)
-        ]);
-    }
-    else
-    {
-        // Error
-        exit('Հայցված ֆայլը գոյություն չունի մեր սերվերում!');
-    }
-})->name('download');
-
-
-Route::get('/', function () {
-    session()->put('authors',Author::latest()->paginate(3));
-    session()->put('books',Book::latest()->paginate(3));
-    return view('index');
-})->name('main');
-
-Route::get('/author/{id}', function ($id) {
-    $author = Author::find($id);
-    session()->put('authors',Author::latest()->paginate(3));
-    session()->put('author',$author);
-    return view('author');
-})->name('author');
-
-Route::get('/authors', function () {
-    session()->put('authors',Author::latest()->get());
-    return view('authors');
-})->name('authors');
-
-Route::get('/authors/search','AuthorController@authors_search')->name('authors_scearch');
-
-Route::get('/book/{id}', function ($id) {
-    $book = Book::find($id);
-    session()->put('books',Book::latest()->paginate(3));
-    session()->put('book',$book);
-    session()->put('comments',comment::latest()->get());
-    return view('book');
-})->name('book');
-
-Route::get('/books', function () {
-    session()->put('books' , Book::latest()->get());
-    return view('books');
-})->name('books');
-
-Route::get('/books/search','BookController@books_search')->name('books_scearch');
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
-
-Route::post('/contact/post','ContactController@store')->name('contact.save');
-
-Route::post('/comment/post','CommentController@store')->name('comment.save')->middleware('auth');
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/aa','Admin\User@aa');

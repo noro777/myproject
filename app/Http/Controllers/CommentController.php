@@ -2,41 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\comment as ModelsComment;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\CommentRequest;
+use App\Service\CommentService;
 
 class CommentController extends Controller
 {
-    public function store(Request $request)
+    public function store(CommentRequest $request,CommentService $service)
     {
         $data = $request->all();
-        $validator = Validator::make($data, [
-            'message'=>'required',
-        ]);
 
-        if ($validator->fails()) {
-            return $validator->errors()->all();
-        }
-
-        if($request->has('book_id') ){
-            ModelsComment::create([
-                'name' => $data['name'],
-                'message' =>$data['message'],
-                'book_id' => $data['book_id'],
-                ]);
-
-        }else{
-            ModelsComment::create([
-                'name' => $data['name'],
-                'message' =>$data['message'],
-                'author_id' => $data['author_id'],
-                ]);
-
-        }
-
-
-
+        $service->store($data);
 
         return redirect()->back();
     }

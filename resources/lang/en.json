@@ -12,6 +12,12 @@
     "update":"Update",
     "Password":"Password",
     "author_id":"Author Id",
+    "file1" : "The requested file does not exist on our server",
+    "status" : "The message was sent",
+    "subject" : "Message Confirmation:",
+    "girq" : "Գրքի մասին մեկնաբանություն տեսնելու կամ հրապարակելու համար անցեք",
+    "grox" : "Հեղինակի մասին մեկնաբանություն տեսնելու կամ հրապարակելու համար անցեք",
+    "kam" : "կամ",
 
     "home":"Home",
     "authors":"Authors",

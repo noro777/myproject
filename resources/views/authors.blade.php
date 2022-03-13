@@ -47,9 +47,6 @@
     </div>
 </header>
 
-@php
-    $authors = session()->get('authors');
-@endphp
 
     <div class="container-fluid">
         <main class="tm-main text-right">

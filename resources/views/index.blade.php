@@ -7,12 +7,20 @@
     @auth
 <form action="{{ route('logout') }}" method="POST">
     @csrf
-    <button class="btn btn-primary" type="submit">{{ __('logout') }}</button>
+    <div>
+        <button class="btn btn-primary" type="submit">{{ __('logout') }}</button>
+    </div>
+
 </form>
 @else
-<a class="btn btn-primary" href="{{ route('login') }}">{{ __('login') }}</a>
-<a class="btn btn-primary" href="{{ route('register') }}">{{ __('register') }}</a>
+        <div>
+            <a class="btn btn-primary" href="{{ route('login') }}">{{ __('login') }}</a>
+            <a class="btn btn-primary" href="{{ route('register') }}">{{ __('register') }}</a>
+        </div>
+
 @endauth
+    <a href="{{route('lang',['lang'=>'hy'])}}" class="btn btn-primary">{{__('hay')}}</a>
+    <a href="{{route('lang',['lang'=>'ru'])}}" class="btn btn-primary">{{__('ru')}}</a>
     <div class="tm-header-wrapper">
         <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
@@ -61,11 +69,6 @@
 
     <div class="container-fluid">
         <main class="tm-main text-right">
-
-            @php
-                $books = session()->get('books');
-                $authors = session()->get('authors');
-            @endphp
             <div class="row ">
                 @foreach ($books as $book)
                 <div class="col-sm">
@@ -88,8 +91,6 @@
                 @endforeach
 
             </div>
-
-
                 <div class="d-block ">
                     <a href="{{ route('books') }}" class="btn btn-primary">{{ __('all_books') }} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>

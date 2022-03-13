@@ -47,10 +47,6 @@
     </div>
 </header>
 
-@php
-    $books = session()->get('books');
-
-@endphp
 
     <div class="container-fluid">
         <main class="tm-main text-right">

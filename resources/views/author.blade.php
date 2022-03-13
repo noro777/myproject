@@ -2,8 +2,6 @@
 @section('about')
 
 @php
-    $authora = session()->get('author');
-    $authors = session()->get('authors');
     $comments = $authora->comments;
     $user = auth()->user();
 @endphp
@@ -127,7 +125,7 @@
                         </div>
                     </form>
                     @else
-                    Գրողի մասին մեկնաբանություն տեսնելու կամ հրապարակելու համար անցեք <a href="{{ route('register') }}">գրանցում</a>, կամ <a href="{{ route('login') }}">մուտք գործեք</a>։
+                    {{__('grox')}} <a href="{{ route('register') }}">{{__('register')}}</a>, {{__('kam')}} <a href="{{ route('login') }}">{{__('login')}}</a>։
                 @endauth
         </main>
     </div>

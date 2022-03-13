@@ -5,8 +5,6 @@
       </svg>{{ __('back') }}</a>
 
     @php
-        $booka = session()->get('book');
-        $books = session()->get('books');
         $comments = $booka->comments;
         $user = auth()->user();
     @endphp
@@ -113,7 +111,7 @@
                         </div>
                     </form>
                     @else
-                    Գրքի մասին մեկնաբանություն տեսնելու կամ հրապարակելու համար անցեք <a href="{{ route('register') }}">գրանցում</a>, կամ <a href="{{ route('login') }}">մուտք գործեք</a>։
+                    {{__('girq')}} <a href="{{ route('register') }}">{{__('register')}}</a>, {{__('kam')}} <a href="{{ route('login') }}">{{__('login')}}</a>։
                 @endauth
 
         </main>
